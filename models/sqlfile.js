@@ -108,7 +108,7 @@ function updateTask(data, callback) {
 function assignTask(data, callback) {
     // const { title, category, description, assigned_to, emp_id, priority, due_date } = data;
     console.log(data);
-    crt.query("INSERT INTO tasks (title, category, description, assigned_to, emp_id, priority, due_date) VALUES (?,?,?,?,?,?,?)",
+    crt.query("INSERT INTO tasks (title, department, description, assigned_to, emp_id, priority, due_date) VALUES (?,?,?,?,?,?,?)",
         [data.title, data.category, data.description, data.assigned_to, data.emp_id, data.priority, data.due_date], callback);
 }
 
@@ -128,4 +128,5 @@ function excelsheet(data, callback) {
 
 
 module.exports = { crt, createUserTable, createTaskTable, checkUser, getTask, updateTask, assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet };
+
 
