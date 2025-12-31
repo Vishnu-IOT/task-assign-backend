@@ -1,8 +1,7 @@
 const express = require('express'); // Importing express
 const app = express(); // Creating an express app
-const startpoint = require("./routes/login.js")
+const startpoint = require("./routes/login.js");
 const cors = require("cors");
-const { connectDB } = require('./models/mongofile.js');
 require("dotenv").config();
 
 
@@ -10,8 +9,7 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 app.use("/api", startpoint);
-console.log("passed index")
-// connectDB();
+console.log("passed index");
 
 // app.use("/admin",  require("./routes/login.js"))
 
@@ -19,4 +17,5 @@ console.log("passed index")
 const port = process.env.SERVER_PORT || 4000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+
 });
