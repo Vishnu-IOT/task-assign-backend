@@ -76,8 +76,8 @@ function createTaskTable() {
 function createEmployee(data, callback) {
     console.log(data);
     crt.query(
-        "INSERT INTO users (emp_id, name, email, UID, department, phonenumber) VALUES (?,?,?,?,?,?)",
-        [data.emp_id, data.name, data.email, data.password, data.department, data.phonenumber],
+        "INSERT INTO users (emp_id, name, email, department, phonenumber, UID) VALUES (?,?,?,?,?,?)",
+        [data.emp_id, data.name, data.email, data.department, data.phonenumber, data.password],
         callback);
 }
 
@@ -128,3 +128,4 @@ function excelsheet(data, callback) {
 
 
 module.exports = { crt, createUserTable, createTaskTable, checkUser, getTask, updateTask, assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet };
+
