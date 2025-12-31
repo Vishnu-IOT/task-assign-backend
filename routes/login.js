@@ -6,7 +6,7 @@ const { crt } = require("../models/sqlfile");
 const { findUserMDB, registerUserMDB } = require("../controllers/mdbadmin");
 const router = express.Router();
 
-router.post("/register", verifyFirebaseToken, registerUserMDB)
+router.post("/register", verifyFirebaseToken, registerUser)
 router.post("/login", verifyFirebaseToken, loginUser)
 router.post("/task", taskAssign)
 router.post("/emp", taskView)
@@ -33,6 +33,7 @@ router.post("/usersfire", async (req, res) => {
 
     res.status(200).send("User stored successfully");
 });
+
 
 
 
