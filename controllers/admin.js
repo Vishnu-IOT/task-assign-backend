@@ -134,4 +134,5 @@ function tableTaskCreation(req, res) {
 }
 
 
-module.exports = { taskAssign, empDetails, taskTable, registerUser, verifycred, excelDetails, tableUserCreation, tableTaskCreation };
+module.exports = { taskAssign, empDetails, taskTable, registerUser, excelDetails, tableUserCreation, tableTaskCreation };
+
