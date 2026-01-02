@@ -117,7 +117,7 @@ function employeeDetails(data, callback) {
 }
 
 function completedTask(data, callback) {
-    const query = "SELECT users.name AS employee_name,users.department as Department, COUNT(CASE WHEN tasks.status = 'PENDING' THEN 1 END) AS pending_tasks, COUNT(CASE WHEN tasks.status = 'COMPLETED' THEN 1 END) AS completed_tasks FROM users LEFT JOIN tasks ON users.emp_id = tasks.emp_id where due_date = ? and name != 'HR Admin' GROUP BY users.emp_id, users.name";
+    const query = "SELECT users.name AS employee_name,users.department as Department, COUNT(CASE WHEN tasks.status = 'PENDING' THEN 1 END) AS pending_tasks, COUNT(CASE WHEN tasks.status = 'COMPLETED' THEN 1 END) AS completed_tasks FROM users LEFT JOIN tasks ON users.emp_id = tasks.emp_id where due_date = ? and role != 'ADMIN' GROUP BY users.emp_id, users.name";
     crt.query(query, [data.date], callback);
 }
 
@@ -128,6 +128,7 @@ function excelsheet(data, callback) {
 
 
 module.exports = { crt, createUserTable, createTaskTable, checkUser, getTask, updateTask, assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet };
+
 
 
 
