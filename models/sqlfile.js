@@ -92,7 +92,7 @@ function dupilcateEntry(email) {
 }
 
 function checkUser(data, callback) {
-    crt.query("select * from users where email=?", [data.email], callback);
+    crt.query("select email, emp_id, name, role from users where email=?", [data.email], callback);
 }
 
 
@@ -128,6 +128,7 @@ function excelsheet(data, callback) {
 
 
 module.exports = { crt, createUserTable, createTaskTable, checkUser, getTask, updateTask, assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet };
+
 
 
 
