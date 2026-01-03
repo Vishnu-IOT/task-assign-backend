@@ -122,12 +122,14 @@ function completedTask(data, callback) {
 }
 
 function excelsheet(data, callback) {
-    crt.query("select * from tasks where department=?", [data.dept], callback);
+	const dept = data.dept || NULL;
+    crt.query("select * from tasks where (department = ? OR ? IS NULL)", [dept, dept], callback);
 }
 
 
 
 module.exports = { crt, createUserTable, createTaskTable, checkUser, getTask, updateTask, assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet };
+
 
 
 
