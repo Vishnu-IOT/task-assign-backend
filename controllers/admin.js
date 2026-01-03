@@ -135,8 +135,8 @@ function tableTaskCreation(req, res) {
 
 function count(req, res) {
     try {
-        employeeCount();
-        return res.status(200).send({ success: true });
+        const get = employeeCount();
+        return res.status(200).send({ success: true, datas: get });
     }
     catch (err) {
         return res.status(400).send({ status: false });
@@ -145,5 +145,6 @@ function count(req, res) {
 
 
 module.exports = { taskAssign, empDetails, taskTable, registerUser, excelDetails, tableUserCreation, tableTaskCreation, count };
+
 
 
