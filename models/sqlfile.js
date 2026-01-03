@@ -127,10 +127,11 @@ function excelsheet(data, callback) {
 }
 
 function employeeCount(callback) {
-    crt.query("select count(*) as total_employee from users where role!='ADMIN'",callback);
+    crt.query("select count(case when is_active = 1 then 1 end) as active_employee, count(case when is_active = 0 then 1 end) as inactive_employee from users where role!='ADMIN'",callback);
 }
 
 module.exports = { crt, createUserTable, createTaskTable, checkUser, getTask, updateTask, assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet, employeeCount };
+
 
 
 
