@@ -1,4 +1,4 @@
-const { assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet, createUserTable, createTaskTable } = require("../models/sqlfile");
+const { assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet, createUserTable, createTaskTable, employeeCount } = require("../models/sqlfile");
 const bcrypt = require("bcrypt");
 
 function taskAssign(req, res) {
@@ -133,6 +133,17 @@ function tableTaskCreation(req, res) {
     }
 }
 
+function count(req, res) {
+    try {
+        employeeCount();
+        return res.status(200).send({ success: true });
+    }
+    catch (err) {
+        return res.status(400).send({ status: false });
+    }
+}
 
-module.exports = { taskAssign, empDetails, taskTable, registerUser, excelDetails, tableUserCreation, tableTaskCreation };
+
+module.exports = { taskAssign, empDetails, taskTable, registerUser, excelDetails, tableUserCreation, tableTaskCreation, count };
+
 
