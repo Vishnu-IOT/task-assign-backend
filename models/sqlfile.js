@@ -97,7 +97,7 @@ function checkUser(data, callback) {
 
 
 function getTask(data, callback) {
-    crt.query("select *,DATE_FORMAT(due_date, '%Y-%m-%d') AS task_date from tasks where emp_id=? or due_date=?",
+    crt.query("select *,DATE_FORMAT(due_date, '%Y-%m-%d') AS task_date from tasks where emp_id=?",
         [data.emp_id
 		 // ,data.due_date
 		], callback);
@@ -133,6 +133,7 @@ function employeeCount(callback) {
 }
 
 module.exports = { crt, createUserTable, createTaskTable, checkUser, getTask, updateTask, assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet, employeeCount };
+
 
 
 
