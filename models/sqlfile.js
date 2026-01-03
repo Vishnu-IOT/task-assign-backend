@@ -126,9 +126,12 @@ function excelsheet(data, callback) {
     crt.query("select * from tasks where (department = ? OR ? IS NULL)", [dept, dept], callback);
 }
 
+function employeeCount() {
+    crt.query("select count(*) as total_employee from users");
+}
 
+module.exports = { crt, createUserTable, createTaskTable, checkUser, getTask, updateTask, assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet, employeeCount };
 
-module.exports = { crt, createUserTable, createTaskTable, checkUser, getTask, updateTask, assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet };
 
 
 
