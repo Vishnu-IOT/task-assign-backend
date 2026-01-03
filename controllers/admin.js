@@ -133,19 +133,21 @@ function tableTaskCreation(req, res) {
     }
 }
 
-async function count(req, res) {
-    try {
-        const [get] = await employeeCount();
-        console.log(get);
-        return res.status(200).send({ success: true, datas: get });
-    }
-    catch (err) {
-        return res.status(400).send({ status: false });
-    }
+function count(req, res) {
+    employeeCount((err, result) => {
+        if (err) {
+            return res.status(500).send({ success: false, message: "Database error" });
+        }
+        if (result.length > 0) {
+            return res.status(200).send({ success: true, datas: result });
+        } else {
+            return res.status(402).send({ success: false });
+        }
+    });
 }
 
-
 module.exports = { taskAssign, empDetails, taskTable, registerUser, excelDetails, tableUserCreation, tableTaskCreation, count };
+
 
 
 
