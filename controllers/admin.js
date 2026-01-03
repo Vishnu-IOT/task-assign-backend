@@ -74,11 +74,11 @@ async function registerUser(req, res) {
     if (rows.length === 0) {
         createEmployee(names, (err, result) => {
             console.log(result)
-            empidCreation(result);
             console.log("entering")
             if (err) {
                 return res.status(500).send({ success: false, message: "Database error" });
             }
+            empidCreation(result);
             console.log(result);
             if (result.affectedRows > 0) {
                 console.log(result);
@@ -147,6 +147,7 @@ function count(req, res) {
 }
 
 module.exports = { taskAssign, empDetails, taskTable, registerUser, excelDetails, tableUserCreation, tableTaskCreation, count };
+
 
 
 
