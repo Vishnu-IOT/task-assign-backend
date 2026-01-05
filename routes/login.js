@@ -13,6 +13,7 @@ router.post("/status", taskUpdate)
 router.post("/details", empDetails)
 router.post("/assigntask", taskTable)
 router.post("/excel", excelDetails)
+router.post("/duplicate", dupilcateUser)
 
 router.get("/userscreate",tableUserCreation);
 router.get("/taskscreate",tableTaskCreation);
@@ -20,4 +21,5 @@ router.get("/counts",count);
 
 
 module.exports = router;
+
 
