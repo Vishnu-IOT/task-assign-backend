@@ -66,31 +66,41 @@ function taskTable(req, res) {
     })
 }
 
-async function registerUser(req, res) {
+function registerUser(req, res) {
     const names = req.body;
     console.log(names);
-    const [rows] = await dupilcateEntry(names.email);
-    console.log(rows);
-    if (rows.length === 0) {
-        createEmployee(names, (err, result) => {
-            console.log(result)
-            console.log("entering")
-            if (err) {
-                return res.status(500).send({ success: false, message: "Database error" });
-            }
-            empidCreation(result);
+    createEmployee(names, (err, result) => {
+        console.log(result);
+        console.log(err);
+        console.log("entering");
+        if (err) {
+            return res.status(500).send({ success: false, message: "Database Error" });
+        }
+        console.log(result);
+        empidCreation(result);
+        if (result.affectedRows > 0) {
             console.log(result);
-            if (result.affectedRows > 0) {
-                console.log(result);
-                return res.status(200).send({ success: true, datas: result });
-            } else {
-                return res.status(400).send({ success: false, datas: "Email Already Exists" });
-            }
-        })
-    }
-    else{
-        return res.status(400).send({ success: false, datas: "Email Already Exists" });
-    }
+            return res.status(200).send({ success: true, datas: result });
+        } else {
+            return res.status(402).send({ success: false, datas: "Email or Phone Number Already Exists" });
+        }
+    })
+}
+
+function dupilcateUser(req, res) {
+    const data = req.body;
+    dupilcateEntry(data, (err, result) => {
+        console.log(result);
+        if (err) {
+            return res.status(500).send({ success: false, message: "Database Error" });
+        }
+        if (result.length === 0) {
+            return res.status(200).send({ success: true, datas: "No Data Found" });
+        }
+        else {
+            return res.status(400).send({ success: false, datas: "Email or Phone Number Already Exists" });
+        }
+    })
 }
 
 function excelDetails(req, res) {
@@ -147,6 +157,7 @@ function count(req, res) {
 }
 
 module.exports = { taskAssign, empDetails, taskTable, registerUser, excelDetails, tableUserCreation, tableTaskCreation, count };
+
 
 
 
