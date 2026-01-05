@@ -87,8 +87,8 @@ function empidCreation(data) {
     crt.query("UPDATE users SET emp_id=? WHERE user_id=?", [empId, data.insertId]);
 }
 
-function dupilcateEntry(email) {
-    return crt.promise().query("select * from users where email=?", [email]);
+function dupilcateEntry(data, callback) {
+    crt.query("select * from users where email=? or phonenumber=?", [data.email, data.phonenumber], callback);
 }
 
 function checkUser(data, callback) {
@@ -133,6 +133,7 @@ function employeeCount(callback) {
 }
 
 module.exports = { crt, createUserTable, createTaskTable, checkUser, getTask, updateTask, assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet, employeeCount };
+
 
 
 
