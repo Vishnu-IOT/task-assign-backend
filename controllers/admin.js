@@ -156,7 +156,8 @@ function count(req, res) {
     });
 }
 
-module.exports = { taskAssign, empDetails, taskTable, registerUser, excelDetails, tableUserCreation, tableTaskCreation, count };
+module.exports = { taskAssign, empDetails, taskTable, registerUser, excelDetails, tableUserCreation, tableTaskCreation, count, dupilcateUser };
+
 
 
 
