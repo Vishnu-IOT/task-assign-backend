@@ -22,26 +22,23 @@ function taskAssign(req, res) {
     })
 }
 
-function empDetails(req, res) {
+async function empDetails(req, res) {
     const names = req.body;
     console.log(names);
-
-    employeeDetails(names, (err, result) => {
-        if (err) {
-
-            return res.status(500).send({ success: false, message: "Database error" });
+    if (!names.dept) {
+            return res.status(400).send({ success: false, datas: "Department is required" });
         }
-        console.log(result);
-        if (err) {
-            console.log(err);
+        try {
+            const [fields] = await employeeDetails(names);
+            console.log(fields);
+                if (fields.length > 0) {
+                    return res.status(200).send({ success: true, datas: fields });
+                }
+            return res.status(400).send({ success: false, datas: "No Users/Departments are Found" });
         }
-        if (result.length > 0) {
-            console.log(result);
-            return res.status(200).send({ success: true, datas: result });
-        } else {
+        catch (err) {
             return res.status(400).send({ success: false });
         }
-    })
 }
 
 function taskTable(req, res) {
@@ -157,6 +154,7 @@ function count(req, res) {
 }
 
 module.exports = { taskAssign, empDetails, taskTable, registerUser, excelDetails, tableUserCreation, tableTaskCreation, count, dupilcateUser };
+
 
 
 
