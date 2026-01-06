@@ -1,4 +1,4 @@
-const { assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet, createUserTable, createTaskTable, employeeCount } = require("../models/sqlfile");
+const { assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet, createUserTable, createTaskTable, employeeCount, admin } = require("../models/sqlfile");
 const bcrypt = require("bcrypt");
 
 async function taskAssign(req, res) {
@@ -135,7 +135,27 @@ async function count(req, res) {
     }
 }
 
-module.exports = { taskAssign, empDetails, taskTable, registerUser, excelDetails, tableUserCreation, tableTaskCreation, count, dupilcateUser };
+async function addAdmin(req, res) {
+    const data = req.query;
+    console.log(data);
+    if (!data.emp_id) {
+        return res.status(400).send({ success: false, datas: "Employee ID cannot be Empty" });
+    }
+    console.log(!data.role === 'ADMIN' ||!data.role === 'EMPLOYEE');
+    try {
+        const [result] = await admin(data);
+        if (result.affectedRows > 0) {
+            return res.status(200).send({ success: true, datas: "Admin Added Successfully!" });
+        }
+        return res.status(400).send({ success: "false" });
+    }
+    catch (err) {
+        return res.status(400).send({ success: false, datas: "Role must be ADMIN/EMPLOYEE" });
+    }
+}
+
+module.exports = { taskAssign, empDetails, taskTable, registerUser, excelDetails, tableUserCreation, tableTaskCreation, count, dupilcateUser, addAdmin };
+
 
 
 
