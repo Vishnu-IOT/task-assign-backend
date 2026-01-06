@@ -73,66 +73,64 @@ function createTaskTable() {
     crt.query(queue);
 }
 
-function createEmployee(data, callback) {
+function createEmployee(data) {
     console.log(data);
-    crt.query(
+    return crt.promise().query(
         "INSERT INTO users (emp_id, name, email, department, phonenumber, UID) VALUES (?,?,?,?,?,?)",
-        [data.emp_id, data.name, data.email, data.department, data.phonenumber, data.password],
-        callback);
+        [data.emp_id, data.name, data.email, data.department, data.phonenumber, data.password]);
 }
 
 function empidCreation(data) {
-    console.log(data)
     const empId = `EMP${String(data.insertId).padStart(3, '0')}`;
-    crt.query("UPDATE users SET emp_id=? WHERE user_id=?", [empId, data.insertId]);
+    return crt.promise().query("UPDATE users SET emp_id=? WHERE user_id=?", [empId, data.insertId]);
 }
 
-function dupilcateEntry(data, callback) {
-    crt.query("select * from users where email=? or phonenumber=?", [data.email, data.phonenumber], callback);
+function dupilcateEntry(data) {
+    return crt.promise().query("select * from users where email=? or phonenumber=?", [data.email, data.phonenumber]);
 }
 
-function checkUser(data, callback) {
-    crt.query("select email, emp_id, name, role from users where email=?", [data.email], callback);
+function checkUser(data) {
+    return crt.promise().query("select email, emp_id, name, role from users where email=?", [data.email]);
 }
 
 
-function getTask(data, callback) {
-    crt.query("select *,DATE_FORMAT(due_date, '%Y-%m-%d') AS task_date from tasks where emp_id=?",
+function getTask(data) {
+    return crt.promise().query("select *,DATE_FORMAT(due_date, '%Y-%m-%d') AS task_date from tasks where emp_id=?",
         [data.emp_id
 		 // ,data.due_date
-		], callback);
+		]);
 }
 
-function updateTask(data, callback) {
-    crt.query("update tasks set status=?,remarks=? where task_id=?", [data.status, data.remarks, data.task_id], callback);
+function updateTask(data) {
+    return crt.promise().query("update tasks set status=?,remarks=? where task_id=?", [data.status, data.remarks, data.task_id]);
 }
 
-function assignTask(data, callback) {
+function assignTask(data) {
     // const { title, category, description, assigned_to, emp_id, priority, due_date } = data;
-    console.log(data);
-    crt.query("INSERT INTO tasks (title, department, description, assigned_to, emp_id, priority, due_date) VALUES (?,?,?,?,?,?,?)",
-        [data.title, data.category, data.description, data.assigned_to, data.emp_id, data.priority, data.due_date], callback);
+    return crt.promise().query("INSERT INTO tasks (title, department, description, assigned_to, emp_id, priority, due_date) VALUES (?,?,?,?,?,?,?)",
+        [data.title, data.category, data.description, data.assigned_to, data.emp_id, data.priority, data.due_date]);
 }
 
 function employeeDetails(data) {
     return crt.promise().query("select emp_id,name from users where department=? and role!='ADMIN'", [data.dept]);
 }
 
-function completedTask(data, callback) {
+function completedTask(data) {
     const query = "SELECT users.name AS employee_name,users.department as Department, COUNT(CASE WHEN tasks.status = 'PENDING' THEN 1 END) AS pending_tasks, COUNT(CASE WHEN tasks.status = 'COMPLETED' THEN 1 END) AS completed_tasks FROM users LEFT JOIN tasks ON users.emp_id = tasks.emp_id where due_date = ? and role != 'ADMIN' GROUP BY users.emp_id, users.name";
-    crt.query(query, [data.date], callback);
+    return crt.promise().query(query, [data.date]);
 }
 
-function excelsheet(data, callback) {
+function excelsheet(data) {
 	const dept = data.dept || NULL;
-    crt.query("select * from tasks where (department = ? OR ? IS NULL)", [dept, dept], callback);
+    return crt.promise().query("select * from tasks where (department = ? OR ? IS NULL)", [dept, dept]);
 }
 
-function employeeCount(callback) {
-    crt.query("select count(case when is_active = 1 then 1 end) as active_employee, count(case when is_active = 0 then 1 end) as inactive_employee from users where role!='ADMIN'",callback);
+function employeeCount() {
+    return crt.promise().query("select count(case when is_active = 1 then 1 end) as active_employee, count(case when is_active = 0 then 1 end) as inactive_employee from users where role!='ADMIN'");
 }
 
 module.exports = { crt, createUserTable, createTaskTable, checkUser, getTask, updateTask, assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet, employeeCount };
+
 
 
 
