@@ -129,7 +129,12 @@ function employeeCount() {
     return crt.promise().query("select count(case when is_active = 1 then 1 end) as active_employee, count(case when is_active = 0 then 1 end) as inactive_employee from users where role!='ADMIN'");
 }
 
-module.exports = { crt, createUserTable, createTaskTable, checkUser, getTask, updateTask, assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet, employeeCount };
+function admin(data) {
+    return crt.promise().query("update users set role =? where emp_id=?;", [data.role, data.emp_id]);
+}
+
+module.exports = { crt, createUserTable, createTaskTable, checkUser, getTask, updateTask, assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet, employeeCount, admin };
+
 
 
 
