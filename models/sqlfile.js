@@ -114,8 +114,8 @@ function assignTask(data, callback) {
         [data.title, data.category, data.description, data.assigned_to, data.emp_id, data.priority, data.due_date], callback);
 }
 
-function employeeDetails(data, callback) {
-    crt.query("select emp_id,name from users where department=? and role!='ADMIN'", [data.dept], callback);
+function employeeDetails(data) {
+    return crt.promise().query("select emp_id,name from users where department=? and role!='ADMIN'", [data.dept]);
 }
 
 function completedTask(data, callback) {
@@ -133,6 +133,7 @@ function employeeCount(callback) {
 }
 
 module.exports = { crt, createUserTable, createTaskTable, checkUser, getTask, updateTask, assignTask, employeeDetails, completedTask, createEmployee, empidCreation, dupilcateEntry, excelsheet, employeeCount };
+
 
 
 
