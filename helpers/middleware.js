@@ -22,10 +22,11 @@ export const verifyFirebaseToken = async (req, res, next) => {
     console.log("DECODED TOKEN:", decoded);
 
     // 4. Attach user and continue
-    // req.user = decoded;
+    req.user = decoded;
     next();
   } catch (err) {
     console.error("TOKEN VERIFY ERROR:", err.message);
     return res.status(401).json({ message: "Invalid token" });
   }
 };
+
