@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 async function loginUser(req, res) {
 
-    const datalog = req.body;
+    const datalog = req.user;
     // const salt = 10;
     // const pass = await bcrypt.hash(datalog.password, salt);
     // console.log(pass);
@@ -67,5 +67,6 @@ function taskUpdate(req, res) {
         }
     })
 }
+
 
 module.exports = { loginUser, taskView, taskUpdate };
