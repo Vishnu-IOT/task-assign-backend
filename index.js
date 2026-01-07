@@ -11,6 +11,10 @@ app.use(express.json());
 app.use("/api", startpoint);
 console.log("passed index");
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the API");
+});
+
 // app.use("/admin",  require("./routes/login.js"))
 
 // Set up the server to listen on port 4000
@@ -19,3 +23,4 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 
 });
+
